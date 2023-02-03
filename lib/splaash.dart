@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'phone.dart';
 
 class spalshscreen extends StatefulWidget {
@@ -13,6 +16,45 @@ class spalshscreen extends StatefulWidget {
 }
 
 class _spalshscreenState extends State<spalshscreen> {
+  late Box box2;
+
+  @override
+  void initState() {
+    super.initState();
+    startSplashScreen();
+    getData();
+  }
+
+  void getData() async {
+    box2 = await Hive.openBox('logindata');
+  }
+
+  startSplashScreen() async {
+    var duration = const Duration(seconds: 10);
+    return Timer(
+      duration,
+      () {
+        print("splash" + box2.get('isLogged', defaultValue: false).toString());
+        print(box2.get("isLogged"));
+
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
+        // box2.get('isLogged',defaultValue: false)?MyPhone(title: "phone"):Verify()
+        //   ,),);
+
+        // Navigator.of(context).pushReplacement(
+        // MaterialPageRoute(
+        //   builder: (_) =>
+        //       //box2.get('isLogged',defaultValue: false)?MyPhone(title: "phone"):Verify(),
+        //       box2.get('isLogged', defaultValue: false)
+        //           ? MyPhone(title: "phone")
+        //           : Landing(),
+        //enter here the entering page after login
+        // ),
+        // );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return (Scaffold(

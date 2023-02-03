@@ -54,7 +54,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
       backgroundColor: Color.fromARGB(255, 233, 117, 134),
       body: Center(
         child: Image.asset(
-          "images/Logoamigo.jpeg",
+          "images/LatestIcon.png",
           width: 700.0,
           height: 300.0,
         ),

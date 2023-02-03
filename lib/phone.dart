@@ -27,6 +27,9 @@ class _MyPhoneState extends State<MyPhone> {
   String phone = "";
   @override
   void initState() {
+    // ignore: todo
+    // TODO: implement initState
+    // countryController.text = "+91";
     Colors.black;
     super.initState();
     createBox();
@@ -40,13 +43,11 @@ class _MyPhoneState extends State<MyPhone> {
   signup() async {
     var headers = {
       'Content-Type': 'application/json',
-      // 'Cookie':
-      //     'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYjkxODM3NWU3MjE4ZTc1ODIwMmY2MyIsImlhdCI6MTY3MzA3NDg4OCwiZXhwIjoxNjc1NjY2ODg4fQ.lSDOvNG2hyFEzzznQvw8d2vHsRxhf6yaY-MIsWjrpIM'
     };
     var request =
-        http.Request('POST', Uri.parse('http://admin.our.com/api/getOTP'));
+        http.Request('POST', Uri.parse('http://admin.brikow.com/api/getOTP'));
+
     request.body = json.encode({"phone_no": "$Phone"});
-    //request.body = json.encode({"phone_no": "8839100911"});
 
     request.headers.addAll(headers);
     print("req" + request.toString());
