@@ -1,0 +1,249 @@
+// ignore_for_file: prefer_const_constructors, unused_local_variable, avoid_print, duplicate_ignore
+
+// ignore: unused_import
+import 'dart:convert';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+// ignore: unused_import
+import 'package:http/http.dart';
+import 'package:phone_otp_ui/phone.dart';
+import 'package:pinput/pinput.dart';
+import 'package:http/http.dart' as http;
+
+class MyVerify extends StatefulWidget {
+  const MyVerify({Key? key, required String Phone}) : super(key: key);
+
+  @override
+  State<MyVerify> createState() => _MyVerifyState();
+}
+
+class _MyVerifyState extends State<MyVerify> {
+  var code = "";
+  TextEditingController CodeController = TextEditingController();
+  late Box box1;
+
+  @override
+  void initState() {
+    super.initState();
+    createBox();
+  }
+
+  void createBox() async {
+    box1 = await Hive.openBox('logindata');
+  }
+
+  @override
+  verified() async {
+    var headers = {
+      'Content-Type': 'application/json',
+      // 'Cookie':
+      //     'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYjkxODM3NWU3MjE4ZTc1ODIwMmY2MyIsImlhdCI6MTY3MzA3NDg4OCwiZXhwIjoxNjc1NjY2ODg4fQ.lSDOvNG2hyFEzzznQvw8d2vHsRxhf6yaY-MIsWjrpIM'
+    };
+    var request = http.Request(
+        'POST', Uri.parse('http://admin.our.com/api/loginVerifyOTP'));
+    request.body = json.encode({"phone_no": box1.get('phone'), "otp": '$code'});
+    request.headers.addAll(headers);
+
+    print("phone no: " + "$MyPhone.phone");
+    print("verify req:" + request.toString());
+    print("verify body:" + request.body);
+    print("verify head:" + request.headers.toString());
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      response.headers.forEach((key, value) {
+        print(key);
+      });
+      print(response.headers["set-cookie"]);
+      box1.put("token", response.headers["set-cookie"]);
+      print(box1.get("token"));
+
+      // Navigator.pushNamed(context, 'myverify');
+      Navigator.pushReplacementNamed(context, 'landing');
+    } else {
+      print(response.reasonPhrase);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => _buildPopupDialog(context),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final defaultPinTheme = PinTheme(
+      width: 56,
+      height: 56,
+      textStyle: TextStyle(
+          fontSize: 20,
+          color: Color.fromRGBO(30, 60, 87, 1),
+          fontWeight: FontWeight.w600),
+      decoration: BoxDecoration(
+        border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
+        borderRadius: BorderRadius.circular(20),
+      ),
+    );
+
+    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+      border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
+      borderRadius: BorderRadius.circular(8),
+    );
+
+    final submittedPinTheme = defaultPinTheme.copyWith(
+      decoration: defaultPinTheme.decoration?.copyWith(
+        color: Color.fromRGBO(234, 239, 243, 1),
+      ),
+    );
+
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushNamed(context, 'phone');
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: Colors.black,
+          ),
+        ),
+        elevation: 0,
+      ),
+      body: Container(
+        margin: EdgeInsets.only(left: 25, right: 25),
+        alignment: Alignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        opacity: (0.3),
+                        image: AssetImage("assets/overlay.png"),
+                        fit: BoxFit.fitHeight)),
+              ),
+              Center(
+                child: Container(child: Image.asset("assets/hotpot.png")),
+              ),
+
+              SizedBox(
+                height: 25,
+              ),
+              Text(
+                "Phone Verification",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "We need to register your phone without getting started!",
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              // ignore: prefer_const_constructors
+              SizedBox(
+                height: 30,
+              ),
+              Pinput(
+                length: 6,
+                showCursor: true,
+                onChanged: (value) {
+                  code = value;
+                },
+                // ignore: avoid_print
+                onCompleted: (pin) => print(pin),
+              ),
+              // ignore: prefer_const_constructors
+              SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: () {
+                  verified();
+                },
+                child: Container(
+                  width: 280,
+                  height: 55,
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        "Verify Phone Number",
+                        style: GoogleFonts.lato(
+                            textStyle: TextStyle(
+                                fontSize: 17,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900)),
+                      ),
+                      Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        'phone',
+                        (route) => false,
+                      );
+                    },
+                    child: Text(
+                      "Edit Phone Number ?",
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPopupDialog(BuildContext context) {
+    return new AlertDialog(
+      title: const Text(
+        'Incorrect Code',
+        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+      ),
+      content: new Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Center(
+            child: Text("Please enter code sent in your mobile number"),
+          )
+        ],
+      ),
+      actions: <Widget>[
+        new TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('Close'),
+        ),
+      ],
+    );
+  }
+}
