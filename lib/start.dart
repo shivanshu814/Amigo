@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:phone_otp_ui/phone.dart';
-
 import 'phone.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
