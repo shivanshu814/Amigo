@@ -35,6 +35,8 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
         print("splash" + box2.get('isLogged', defaultValue: false).toString());
         print(box2.get("isLogged"));
 
+        //the next page name
+
         // Navigator.of(context).pushReplacement(
         //   MaterialPageRoute(
         //     builder: (_) => box2.get('isLogged', defaultValue: false)
