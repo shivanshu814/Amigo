@@ -2,7 +2,7 @@
 
 // ignore: unused_import
 import 'dart:convert';
-
+import 'chooseRes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -62,7 +62,7 @@ class _MyVerifyState extends State<MyVerify> {
       print(box1.get("token"));
 
       // Navigator.pushNamed(context, 'myverify');
-      Navigator.pushReplacementNamed(context, 'landing');
+      Navigator.pushReplacementNamed(context, 'chooseRes');
     } else {
       print(response.reasonPhrase);
       showDialog(

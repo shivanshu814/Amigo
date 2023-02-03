@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:phone_otp_ui/phone.dart';
+import 'chooseRes.dart';
 import 'phone.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -36,14 +37,14 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
         //the next page name
 
-        // Navigator.of(context).pushReplacement(
-        //   MaterialPageRoute(
-        //     builder: (_) => box2.get('isLogged', defaultValue: false)
-        //         ? MyPhone(title: "phone")
-        //         // here the name of next pagee
-        //         : nextpage(),
-        //   ),
-        // );
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => box2.get('isLogged', defaultValue: false)
+                ? MyPhone(title: "phone")
+                // here the name of next pagee
+                : ChooseRes(),
+          ),
+        );
       },
     );
   }
