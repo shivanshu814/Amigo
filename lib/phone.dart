@@ -80,11 +80,11 @@ class _MyPhoneState extends State<MyPhone> {
             decoration: BoxDecoration(
                 image: DecorationImage(
                     opacity: (0.3),
-                    image: AssetImage("assets/overlay.png"),
+                    image: AssetImage("assets/images/overlay.png"),
                     fit: BoxFit.fitHeight)),
           ),
           Center(
-            child: Container(child: Image.asset("assets/burger.png")),
+            child: Container(child: Image.asset("assets/images/burger1.png")),
           ),
           Container(
             margin: EdgeInsets.only(left: 25, right: 25),

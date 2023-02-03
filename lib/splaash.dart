@@ -6,6 +6,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:phone_otp_ui/homePage/homePage.dart';
+import 'package:phone_otp_ui/verify.dart';
 import 'phone.dart';
 
 class spalshscreen extends StatefulWidget {
@@ -37,20 +39,29 @@ class _spalshscreenState extends State<spalshscreen> {
         print("splash" + box2.get('isLogged', defaultValue: false).toString());
         print(box2.get("isLogged"));
 
-        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>
-        // box2.get('isLogged',defaultValue: false)?MyPhone(title: "phone"):Verify()
-        //   ,),);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => box2.get('isLogged', defaultValue: false)
+                ? MyPhone(title: "phone")
+                : MyPhone(
+                    title: '',
+                  ),
+          ),
+        );
 
-        // Navigator.of(context).pushReplacement(
-        // MaterialPageRoute(
-        //   builder: (_) =>
-        //       //box2.get('isLogged',defaultValue: false)?MyPhone(title: "phone"):Verify(),
-        //       box2.get('isLogged', defaultValue: false)
-        //           ? MyPhone(title: "phone")
-        //           : Landing(),
-        //enter here the entering page after login
-        // ),
-        // );
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) =>
+                //box2.get('isLogged',defaultValue: false)?MyPhone(title: "phone"):Verify(),
+                box2.get('isLogged', defaultValue: false)
+                    ? MyPhone(title: "phone")
+                    : MyVerify(
+                        Phone: '',
+                      ),
+            // enter here the entering page after login
+          ),
+        );
       },
     );
   }
@@ -79,12 +90,12 @@ class _spalshscreenState extends State<spalshscreen> {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 opacity: (0.3),
-                                image: AssetImage("assets/overlay.png"),
+                                image: AssetImage("assets/images/overlay.png"),
                                 fit: BoxFit.fitHeight)),
                       ),
                       Center(
-                        child:
-                            Container(child: Image.asset("assets/hotpot.png")),
+                        child: Container(
+                            child: Image.asset("assets/images/hotpot.png")),
                       ),
                     ],
                   )),

@@ -2,7 +2,6 @@
 
 // ignore: unused_import
 import 'dart:convert';
-import 'chooseRes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,6 +11,7 @@ import 'package:http/http.dart';
 import 'package:phone_otp_ui/phone.dart';
 import 'package:pinput/pinput.dart';
 import 'package:http/http.dart' as http;
+import 'homePage/homePage.dart';
 
 class MyVerify extends StatefulWidget {
   const MyVerify({Key? key, required String Phone}) : super(key: key);
@@ -62,7 +62,8 @@ class _MyVerifyState extends State<MyVerify> {
       print(box1.get("token"));
 
       // Navigator.pushNamed(context, 'myverify');
-      Navigator.pushReplacementNamed(context, 'chooseRes');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => homePage()));
     } else {
       print(response.reasonPhrase);
       showDialog(
@@ -124,11 +125,12 @@ class _MyVerifyState extends State<MyVerify> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         opacity: (0.3),
-                        image: AssetImage("assets/overlay.png"),
+                        image: AssetImage("assets/images/overlay.png"),
                         fit: BoxFit.fitHeight)),
               ),
               Center(
-                child: Container(child: Image.asset("assets/hotpot.png")),
+                child:
+                    Container(child: Image.asset("assets/images/hotpot.png")),
               ),
 
               SizedBox(

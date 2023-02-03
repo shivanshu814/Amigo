@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:phone_otp_ui/homePage/homePage.dart';
 import 'package:phone_otp_ui/phone.dart';
-import 'chooseRes.dart';
+// import 'chooseRes.dart';
 import 'phone.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:async';
+
+import 'splaash.dart';
 
 class SplashScreenPage extends StatefulWidget {
   @override
@@ -42,7 +45,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
             builder: (_) => box2.get('isLogged', defaultValue: false)
                 ? MyPhone(title: "phone")
                 // here the name of next pagee
-                : ChooseRes(),
+                : homePage(),
           ),
         );
       },
@@ -55,7 +58,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
       backgroundColor: Color.fromARGB(255, 233, 117, 134),
       body: Center(
         child: Image.asset(
-          "images/LatestIcon.png",
+          "assets/images/LatestIcon.png",
           width: 700.0,
           height: 300.0,
         ),

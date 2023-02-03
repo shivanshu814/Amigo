@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 Color kColorYellow = const Color(0xffffda2a);
 Color kColorRed = const Color(0xffcf2c4e);
+const kPrimaryColor = Color(0xFFFFC61F);
+const ksecondaryColor = Color(0xFFB5BFD0);
+const kTextColor = Color(0xFF50505D);
+const kTextLightColor = Color(0xFF6A727D);
 
 class ReusableListFood extends StatefulWidget {
   ReusableListFood(
@@ -37,15 +42,12 @@ class _ReusableListFoodState extends State<ReusableListFood> {
                   icon: Icon(Icons.remove_circle)),
               Text('${widget.countOfItem}'),
               IconButton(
-                onPressed: () {
-                  setState(
-                    () {
+                  onPressed: () {
+                    setState(() {
                       widget.countOfItem = widget.countOfItem + 1;
-                    },
-                  );
-                },
-                icon: Icon(Icons.add_circle),
-              ),
+                    });
+                  },
+                  icon: Icon(Icons.add_circle)),
             ],
           ),
         ],

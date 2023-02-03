@@ -6,14 +6,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
+import 'package:phone_otp_ui/homePage/homePage.dart';
 import 'package:phone_otp_ui/phone.dart';
 import 'package:phone_otp_ui/start.dart';
 import 'package:phone_otp_ui/verify.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'MaggiList.dart';
-import 'chooseRes.dart';
 import 'splaash.dart';
 
 late Box box1;
@@ -59,8 +58,7 @@ Future<void> main() async {
             ),
         'start': (context) => SplashScreenPage(),
         'splaash': (context) => spalshscreen(),
-        'chooseRes': (context) => ChooseRes(),
-        'MaggiList': (context) => MaggiList(),
+        'homePage': (context) => homePage(),
       },
     ),
   );
